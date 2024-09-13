@@ -55,25 +55,4 @@ public class Grid {
                     c.vivante = c.etatSuivant = true;
     }
 
-    /**
-     * recopie l'etat de la grille dans l'ancienne
-     */
-    public void move() {
-        for (Cell[] ligne : grid)
-            for (Cell c : ligne)
-                c.avancer();
-    }
-
-
-    /**
-     * demande a toutes les cellules de la grille de calculer l'etat suivant
-     */
-    public void calculate() {
-        for (Cell[] ligne : grid)
-            for (Cell c : ligne) {
-                c.evoluer();
-                c.switchColor();
-            }
-    }
-
 }
