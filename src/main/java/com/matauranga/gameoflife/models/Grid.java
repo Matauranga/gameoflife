@@ -55,12 +55,6 @@ public class Grid {
                     c.vivante = c.etatSuivant = true;
     }
 
-//    /**change l'etat de la cellule en i,j*/
-//    public void change(int i, int j) {
-//        grid[i][j].vivante = !grid[i][j].vivante;
-//        grid[i][j].switchColor();
-//    }
-
     /**
      * recopie l'etat de la grille dans l'ancienne
      */

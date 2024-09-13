@@ -1,12 +1,8 @@
 package com.matauranga.gameoflife.controller;
 
-import com.matauranga.gameoflife.GameoflifeApplication;
-
 import com.matauranga.gameoflife.models.Cell;
 import com.matauranga.gameoflife.models.Grid;
-
 import com.matauranga.gameoflife.services.GridService;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
@@ -15,16 +11,18 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
 public class GameController {
+
     private final GridService gridService;
 
     public GameController(GridService gridService) {
         this.gridService = gridService;
     }
+
 
 
     /**********************************************************/
@@ -44,21 +42,22 @@ public class GameController {
     /**
      * taille de la grid
      */
-    private static int taille = 200;
+    static int taille = 200;
     /**
      * pourcentage de cellules initialement actives
      */
-    private static double nb = 0.1;
+    static double nb = 0.1;
     /**
      * délai en ms entre chaque évolution
      */
     public static final int tempo = 100;
 
 
+
     /**
      * construit le theatre des opérations, les acteurs (elements graphiques), et le tempo
      * */
-    public static void constructSceneToGame(Stage primaryStage) {
+    public void constructSceneToGame(Stage primaryStage) {
         int largeur = 800;
         int hauteur = 900;
 
@@ -85,8 +84,10 @@ public class GameController {
         //-----lancer le timer pour faire vivre la grid
         Timeline littleCycle = new Timeline(new KeyFrame(Duration.millis(tempo),
                 event -> {
-                    grid.move();
-                    grid.calculate();
+                    gridService.move(grid);
+                    gridService.calculate(grid);
+//                    grid.move();
+//                    grid.calculate();
                 }));
         littleCycle.setCycleCount(Timeline.INDEFINITE);
         littleCycle.play();
@@ -113,7 +114,6 @@ public class GameController {
                 root.getChildren().add(circles[i][j]);
             }
     }
-
 
 
     /************************************************************/
