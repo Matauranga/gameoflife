@@ -1,6 +1,8 @@
 package com.matauranga.gameoflife;
 
 import com.matauranga.gameoflife.controller.GameController;
+import com.matauranga.gameoflife.services.CellService;
+import com.matauranga.gameoflife.services.CellServiceImpl;
 import com.matauranga.gameoflife.services.GridService;
 import com.matauranga.gameoflife.services.GridServiceImpl;
 import javafx.application.Application;
@@ -12,7 +14,8 @@ public class GameoflifeApplication extends Application {
 
     @Override
     public void start(Stage stage) {
-        GridService gridService = new GridServiceImpl();
+        CellService cellService = new CellServiceImpl();
+        GridService gridService = new GridServiceImpl(cellService);
         GameController gameController = new GameController(gridService);
         gameController.constructSceneToGame(stage);
     }

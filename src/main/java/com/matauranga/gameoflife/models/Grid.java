@@ -5,9 +5,6 @@ import lombok.Setter;
 
 import java.util.Random;
 
-/**
- * Grid for the game of life
- */
 @Getter
 @Setter
 public class Grid {
