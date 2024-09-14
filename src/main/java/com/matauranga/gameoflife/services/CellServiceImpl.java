@@ -19,17 +19,17 @@ public class CellServiceImpl implements CellService {
     public void evoluer(Grid grid, Cell cell) {
 
         int nbAliveCells = getNbAliveCells(grid, cell);
-        cell.setEtatPrecedent(cell.isVivante());
+        cell.setPreviousState(cell.isAlive());
 
         //verifie si la cellule doit se desactiver (en sous population, ou surpopulation)
         //on peut remplacer les constantes par des valeurs
-        if (cell.isVivante() && (nbAliveCells <= SUBPOPULATIONS || nbAliveCells >= OVERPOPULATION)) {
-            cell.setEtatSuivant(false);
+        if (cell.isAlive() && (nbAliveCells <= SUBPOPULATIONS || nbAliveCells >= OVERPOPULATION)) {
+            cell.setNextState(false);
         } else
             //verifie si la cellule doit etre active ou reactivée (population idéale)
             //on peut remplacer les constantes par des valeurs
             if (nbAliveCells == IDEALTHRESHOLDFORCELLLIFE) {
-                cell.setEtatSuivant(true);
+                cell.setNextState(true);
             }
     }
 
@@ -42,11 +42,15 @@ public class CellServiceImpl implements CellService {
         int nbAliveCells = 0;
 
         for (int i = -1; i < 2; i++) {
-            int xx = ((cell.getAbscissa() + i) + grid.getGridSize()) % grid.getGridSize();
+            int x = ((cell.getAbscissa() + i) + grid.getGridSize()) % grid.getGridSize();
             for (int j = -1; j < 2; j++) {
                 if (i == 0 && j == 0) continue;
-                int yy = ((cell.getOrdinate() + j) + grid.getGridSize()) % grid.getGridSize();
-                if (grid.getGrid()[xx][yy].isVivante()) nbAliveCells++;
+                {
+                    int y = ((cell.getOrdinate() + j) + grid.getGridSize()) % grid.getGridSize();
+                    if (grid.getGrid()[x][y].isAlive()) {
+                        nbAliveCells++;
+                    }
+                }
             }
         }
         return nbAliveCells;
@@ -55,20 +59,23 @@ public class CellServiceImpl implements CellService {
     /**modifie la couleur de la représentation graphique associee selon l'etat*/
     @Override
     public void switchColor(Cell cell) {
-        Color c = null;
-        if (cell.isVivante() != cell.isEtatSuivant()) {
-            if (cell.isEtatSuivant()) c = COULACTIVE;
-            else c = COULDESACTIVE;
+        Color color = null;
+        if (cell.isAlive() != cell.isNextState()) {
+            if (cell.isNextState()) {
+                color = COULACTIVE;
+            } else {
+                color = COULDESACTIVE;
+            }
         }
-        if (c != null) cell.getCircle().setFill(c);
+        if (color != null) {
+            cell.getCircle().setFill(color);
+        }
 
     }
 
     /**change l etat courant vers l etat suivant*/
     @Override
     public void avancer(Cell cell) {
-        if (!cell.isEnTransition()) {
-            cell.setVivante(cell.isEtatSuivant());
-        }
+        cell.setAlive(cell.isNextState());
     }
 }

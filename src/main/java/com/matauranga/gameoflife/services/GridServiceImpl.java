@@ -6,7 +6,8 @@ import javafx.scene.Group;
 import javafx.scene.shape.Circle;
 import org.springframework.stereotype.Service;
 
-import static com.matauranga.gameoflife.constants.GridColor.*;
+import static com.matauranga.gameoflife.constants.GridColor.COULACTIVE;
+import static com.matauranga.gameoflife.constants.GridColor.COULDESACTIVE;
 
 @Service
 public class GridServiceImpl implements GridService {
@@ -18,19 +19,24 @@ public class GridServiceImpl implements GridService {
     }
 
     @Override
-    public void drawGrid(Group root, int gridSize, double nb, Grid grid, int espace, Circle[][] circles) {
+    public void drawGrid(Group root, int gridSize, double nb, Grid grid, int space, Circle[][] circles) {
 
         Cell[][] grille = grid.getGrid();
-        int rayon = espace / 2;
-        for (int i = 0; i < gridSize; i++)
+        int rayon = space / 2;
+        for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 Cell cell = grille[i][j];
-                circles[i][j] = new Circle((j * espace + rayon), (i * espace + rayon), rayon);
-                if (cell.isVivante()) circles[i][j].setFill(COULACTIVE);
-                else circles[i][j].setFill(COULDESACTIVE);
+                circles[i][j] = new Circle((j * space + rayon), (i * space + rayon), rayon);
+                if (cell.isAlive()) {
+                    circles[i][j].setFill(COULACTIVE);
+                } else {
+                    circles[i][j].setFill(COULDESACTIVE);
+                }
                 cell.setCircle(circles[i][j]);
                 root.getChildren().add(circles[i][j]);
             }
+        }
+
     }
 
     @Override

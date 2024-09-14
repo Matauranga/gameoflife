@@ -49,7 +49,7 @@ public class Grid {
         for (Cell[] ligne : grid)
             for (Cell c : ligne)
                 if (r.nextDouble() < percentCellsAliveInit)
-                    c.vivante = c.etatSuivant = true;
+                    c.alive = c.nextState = true;
     }
 
 }

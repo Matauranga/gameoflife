@@ -10,13 +10,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Cell {
     /*** nature de la cellule */
-    boolean etatPrecedent;
+    boolean previousState;
     /*** nature de la cellule */
-    boolean vivante;
+    boolean alive;
     /** nature de la cellule */
-    boolean etatSuivant;
-    /**en transition, utilisee lorsque l'on veut utiliser les 4 couleurs de la cellule et non seulement les 2 etats binaires active, desactive */
-    boolean enTransition;
+    boolean nextState;
     /*** coordonnee de la cellule dans la grille */
     int abscissa;
     int ordinate;
@@ -25,10 +23,9 @@ public class Cell {
     /*** sa representation graphique associee */
     Circle circle;
 
-    public Cell(Cell[][] grille, int abscissa, int ordinate, boolean vivante) {
+    public Cell(Cell[][] grille, int abscissa, int ordinate, boolean alive) {
         this.grille = grille;
-        this.vivante = etatPrecedent = etatSuivant = vivante;
-        enTransition = false;
+        this.alive = previousState = nextState = alive;
         this.abscissa = abscissa;
         this.ordinate = ordinate;
     }
