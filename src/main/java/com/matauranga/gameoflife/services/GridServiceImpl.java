@@ -18,14 +18,14 @@ public class GridServiceImpl implements GridService {
     }
 
     @Override
-    public void drawGrid(Group root, int gridSize, double nb, Grid grid, int espace, Circle[][] circles) {
+    public void drawGrid(Group root, int gridSize, double nb, Grid grid, int space, Circle[][] circles) {
 
         Cell[][] grille = grid.getGrid();
-        int rayon = espace / 2;
+        int rayon = space / 2;
         for (int i = 0; i < gridSize; i++)
             for (int j = 0; j < gridSize; j++) {
                 Cell cell = grille[i][j];
-                circles[i][j] = new Circle((j * espace + rayon), (i * espace + rayon), rayon);
+                circles[i][j] = new Circle((j * space + rayon), (i * space + rayon), rayon);
                 if (cell.isVivante()) circles[i][j].setFill(COULACTIVE);
                 else circles[i][j].setFill(COULDESACTIVE);
                 cell.setCircle(circles[i][j]);

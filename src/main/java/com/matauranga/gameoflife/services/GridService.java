@@ -7,7 +7,7 @@ import javafx.scene.shape.Circle;
 public interface GridService {
 
     //    void drawGrid(Group root);
-    void drawGrid(Group root, int gridSize, double nb, Grid grid, int espace, Circle[][] circles);
+    void drawGrid(Group root, int gridSize, double nb, Grid grid, int space, Circle[][] circles);
 
     void calculate(Grid grid);
 
