@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import static com.matauranga.gameoflife.constants.GridColor.COULACTIVE;
 import static com.matauranga.gameoflife.constants.GridColor.COULDESACTIVE;
+import static com.matauranga.gameoflife.constants.GridFeatures.GRIDSIZE;
 import static com.matauranga.gameoflife.constants.ThresholdPopulation.*;
 
 @Service
@@ -40,11 +41,11 @@ public class CellServiceImpl implements CellService {
         int nbAliveCells = 0;
 
         for (int i = -1; i < 2; i++) {
-            int x = ((cell.getAbscissa() + i) + grid.getGridSize()) % grid.getGridSize();
+            int x = ((cell.getAbscissa() + i) + GRIDSIZE) % GRIDSIZE;
             for (int j = -1; j < 2; j++) {
                 if (i == 0 && j == 0) continue;
                 {
-                    int y = ((cell.getOrdinate() + j) + grid.getGridSize()) % grid.getGridSize();
+                    int y = ((cell.getOrdinate() + j) + GRIDSIZE) % GRIDSIZE;
                     if (grid.getGrid()[x][y].isAlive()) {
                         nbAliveCells++;
                     }
@@ -68,7 +69,6 @@ public class CellServiceImpl implements CellService {
         if (color != null) {
             cell.getCircle().setFill(color);
         }
-
     }
 
     /**change l etat courant vers l etat suivant*/

@@ -7,7 +7,6 @@ import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.springframework.stereotype.Controller;
@@ -22,37 +21,26 @@ public class GameController {
         this.gridService = gridService;
     }
 
-    // Graphical elements representing the grid
-    static Grid grid;
-    // Graphical elements representing the cells
-    public static Circle[][] circles;
-
     public void constructSceneToGame(Stage stage) {
 
-        grid = new Grid(GRIDSIZE, INITIALPERCENTOFACTIVECELLS);
-        circles = new Circle[GRIDSIZE][GRIDSIZE];
-
+        Grid grid = new Grid();
         Group root = new Group();
         Scene scene = new Scene(root, SCENEWIDTH, SCENEHEIGHT, Color.BLACK);
         stage.setTitle("The Game of Life ... (Conway 1970)");
         stage.setScene(scene);
 
-        gridService.drawGrid(root, GRIDSIZE, INITIALPERCENTOFACTIVECELLS, grid, CELLSIZEINPIXELS, circles);
+        gridService.drawGrid(root, grid);
         stage.show();
 
-        //-----lancer le timer pour faire vivre la grid
+        //----- Run Timer
         Timeline littleCycle = new Timeline(new KeyFrame(Duration.millis(DELAYBETWEENEACHEVOLUTION),
-                event -> {
-                    gridService.move(grid);
-                    gridService.calculate(grid);
-                }));
+                event -> gridService.calculateNextGridFrame(grid)));
 
         littleCycle.setCycleCount(Timeline.INDEFINITE);
         littleCycle.play();
 
+        //TODO :
         scene.setOnKeyTyped(System.out::println);
         scene.setOnMouseClicked(System.out::println);
-
     }
-
 }

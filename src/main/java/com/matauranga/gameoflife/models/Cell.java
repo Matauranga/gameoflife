@@ -9,22 +9,23 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Cell {
-    /*** nature de la cellule */
+
     boolean previouslyAlive;
-    /*** nature de la cellule */
+
     boolean alive;
-    /** nature de la cellule */
+
     boolean thereafterAlive;
-    /*** coordonnee de la cellule dans la grille */
+
     int abscissa;
+
     int ordinate;
-    /*** reference a la grille des cellules */
-    Cell[][] grille;
-    /*** sa representation graphique associee */
+
+    Cell[][] grid;
+
     Circle circle;
 
-    public Cell(Cell[][] grille, int abscissa, int ordinate, boolean alive) {
-        this.grille = grille;
+    public Cell(Cell[][] grid, int abscissa, int ordinate, boolean alive) {
+        this.grid = grid;
         this.alive = previouslyAlive = thereafterAlive = alive;
         this.abscissa = abscissa;
         this.ordinate = ordinate;
