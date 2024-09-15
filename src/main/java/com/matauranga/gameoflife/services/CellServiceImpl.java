@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import static com.matauranga.gameoflife.constants.GridColor.COULACTIVE;
 import static com.matauranga.gameoflife.constants.GridColor.COULDESACTIVE;
-import static com.matauranga.gameoflife.constants.GridFeatures.GRIDSIZE;
+import static com.matauranga.gameoflife.constants.GridFeatures.*;
 import static com.matauranga.gameoflife.constants.ThresholdPopulation.*;
 
 @Service

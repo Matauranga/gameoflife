@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 
 import static com.matauranga.gameoflife.constants.GridFeatures.*;
 
+
 @Controller
 public class GameController {
     private final GridService gridService;

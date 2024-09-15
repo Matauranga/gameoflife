@@ -3,7 +3,7 @@ package com.matauranga.gameoflife.models;
 import lombok.Getter;
 import lombok.Setter;
 
-import static com.matauranga.gameoflife.constants.GridFeatures.GRIDSIZE;
+import static com.matauranga.gameoflife.constants.GridFeatures.*;
 
 @Getter
 @Setter
