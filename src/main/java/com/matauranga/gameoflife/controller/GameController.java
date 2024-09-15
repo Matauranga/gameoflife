@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.springframework.stereotype.Controller;
 
+import static com.matauranga.gameoflife.constants.GridFeatures.*;
+
 @Controller
 public class GameController {
     private final GridService gridService;
@@ -24,33 +26,22 @@ public class GameController {
     static Grid grid;
     // Graphical elements representing the cells
     public static Circle[][] circles;
-    // Grid size
-    static int gridSize = 200;
-    // Initial percent of active cells
-    static double nb = 0.1;
-    // Delay between each evolution
-    public static final int tempo = 100;
-    // Scene dimensions
-    static int width = 800;
-    static int height = 900;
-    // Cell size in pixels
-    static int space = width / gridSize;
 
     public void constructSceneToGame(Stage stage) {
 
-        grid = new Grid(gridSize, nb);
-        circles = new Circle[gridSize][gridSize];
+        grid = new Grid(GRIDSIZE, INITIALPERCENTOFACTIVECELLS);
+        circles = new Circle[GRIDSIZE][GRIDSIZE];
 
         Group root = new Group();
-        Scene scene = new Scene(root, width, height, Color.BLACK);
-        stage.setTitle("Life...");
+        Scene scene = new Scene(root, SCENEWIDTH, SCENEHEIGHT, Color.BLACK);
+        stage.setTitle("The Game of Life ... (Conway 1970)");
         stage.setScene(scene);
 
-        gridService.drawGrid(root, gridSize, nb, grid, space, circles);
+        gridService.drawGrid(root, GRIDSIZE, INITIALPERCENTOFACTIVECELLS, grid, CELLSIZEINPIXELS, circles);
         stage.show();
 
         //-----lancer le timer pour faire vivre la grid
-        Timeline littleCycle = new Timeline(new KeyFrame(Duration.millis(tempo),
+        Timeline littleCycle = new Timeline(new KeyFrame(Duration.millis(DELAYBETWEENEACHEVOLUTION),
                 event -> {
                     gridService.move(grid);
                     gridService.calculate(grid);
