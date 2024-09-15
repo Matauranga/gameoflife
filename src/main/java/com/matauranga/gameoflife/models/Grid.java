@@ -46,10 +46,10 @@ public class Grid {
      */
     void initRandom() {
         Random r = new Random();
-        for (Cell[] ligne : grid)
-            for (Cell c : ligne)
+        for (Cell[] line : grid)
+            for (Cell cell : line)
                 if (r.nextDouble() < percentCellsAliveInit)
-                    c.alive = c.nextState = true;
+                    cell.alive = cell.thereafterAlive = true;
     }
 
 }

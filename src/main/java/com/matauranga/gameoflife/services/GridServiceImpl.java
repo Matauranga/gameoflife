@@ -43,8 +43,8 @@ public class GridServiceImpl implements GridService {
     public void calculate(Grid grid) {
         for (Cell[] line : grid.getGrid())
             for (Cell cell : line) {
-                cellService.evoluer(grid, cell);
-                cellService.switchColor(cell);
+                cellService.calculateNextCellState(grid, cell);
+                cellService.switchCellColor(cell);
             }
 
     }
@@ -53,7 +53,7 @@ public class GridServiceImpl implements GridService {
     public void move(Grid grid) {
         for (Cell[] line : grid.getGrid()) {
             for (Cell cell : line) {
-                cellService.avancer(cell);
+                cellService.changeCellStateToNextState(cell);
             }
         }
     }

@@ -10,11 +10,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Cell {
     /*** nature de la cellule */
-    boolean previousState;
+    boolean previouslyAlive;
     /*** nature de la cellule */
     boolean alive;
     /** nature de la cellule */
-    boolean nextState;
+    boolean thereafterAlive;
     /*** coordonnee de la cellule dans la grille */
     int abscissa;
     int ordinate;
@@ -25,7 +25,7 @@ public class Cell {
 
     public Cell(Cell[][] grille, int abscissa, int ordinate, boolean alive) {
         this.grille = grille;
-        this.alive = previousState = nextState = alive;
+        this.alive = previouslyAlive = thereafterAlive = alive;
         this.abscissa = abscissa;
         this.ordinate = ordinate;
     }

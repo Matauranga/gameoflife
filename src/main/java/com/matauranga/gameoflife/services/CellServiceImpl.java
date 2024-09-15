@@ -16,25 +16,23 @@ public class CellServiceImpl implements CellService {
      * determine le prochain etat de la cellule en fonction des cellules voisines
      */
     @Override
-    public void evoluer(Grid grid, Cell cell) {
+    public void calculateNextCellState(Grid grid, Cell cell) {
 
         int nbAliveCells = getNbAliveCells(grid, cell);
-        cell.setPreviousState(cell.isAlive());
+        cell.setPreviouslyAlive(cell.isAlive());
 
         //verifie si la cellule doit se desactiver (en sous population, ou surpopulation)
-        //on peut remplacer les constantes par des valeurs
         if (cell.isAlive() && (nbAliveCells <= SUBPOPULATIONS || nbAliveCells >= OVERPOPULATION)) {
-            cell.setNextState(false);
+            cell.setThereafterAlive(false);
         } else
             //verifie si la cellule doit etre active ou reactivée (population idéale)
-            //on peut remplacer les constantes par des valeurs
             if (nbAliveCells == IDEALTHRESHOLDFORCELLLIFE) {
-                cell.setNextState(true);
+                cell.setThereafterAlive(true);
             }
     }
 
     /**
-     *  Compter le nb de cellules actives dans les 8 cases autours (la grid est considérée sphérique)
+     *  Compter le nb de cellules actives dans les 8 cases autours
      *
      */
     private static int getNbAliveCells(Grid grid, Cell cell) {
@@ -58,10 +56,10 @@ public class CellServiceImpl implements CellService {
 
     /**modifie la couleur de la représentation graphique associee selon l'etat*/
     @Override
-    public void switchColor(Cell cell) {
+    public void switchCellColor(Cell cell) {
         Color color = null;
-        if (cell.isAlive() != cell.isNextState()) {
-            if (cell.isNextState()) {
+        if (cell.isAlive() != cell.isThereafterAlive()) {
+            if (cell.isThereafterAlive()) {
                 color = COULACTIVE;
             } else {
                 color = COULDESACTIVE;
@@ -75,7 +73,8 @@ public class CellServiceImpl implements CellService {
 
     /**change l etat courant vers l etat suivant*/
     @Override
-    public void avancer(Cell cell) {
-        cell.setAlive(cell.isNextState());
+    public void changeCellStateToNextState(Cell cell) {
+        cell.setAlive(cell.isThereafterAlive());
     }
 }
+
